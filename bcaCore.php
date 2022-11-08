@@ -50,8 +50,11 @@ function authorizedToJoin($NumberOfTheCourse, $accessCodeArrayed){
 
 function displayJoinLink($NumberOfTheCourse, $accessCodeArrayed){
 	if(authorizedToJoin($NumberOfTheCourse, $accessCodeArrayed)){
-		return '- <form method="POST" name="course'.$NumberOfTheCourse.'"><input type="hidden" name="course" value="'.$NumberOfTheCourse.'"><a href="#" onclick="javascript:document.course'.$NumberOfTheCourse.'.submit();">Joindre</a></form><br>';
+		return ' <form method="POST" name="course'.$NumberOfTheCourse.'"><input type="hidden" name="course" value="'.$NumberOfTheCourse.'"><a class="noUnderline" href="#" onclick="javascript:document.course'.$NumberOfTheCourse.'.submit();"><i class="fas fa-shoe-prints"></i> Joindre</a></form>';
 	}
+	// else{
+	// 	return ' <a href="#"><i href="#" class="fas fa-info-circle" title="Vous devez compléter d\'autres parcours avant de commencer celui-ci"></i></a>';
+	// }
 }
 
 function setToOneNewJoinedCourse($NumberOfJoinedCourse, $accessCodeArrayed){
@@ -88,7 +91,7 @@ function arrayToStringAccessCode($accessCodeForDB){
 }
 
 function numberToRankNamed($numberFromArray){
-	if($numberFromArray == 0){ $rankNamed='<span class="disabled">Parcours non suivi</span> <i class="fas fa-info-circle" title="Vous devez compléter d\'autres parcours avant de commencer celui-ci"></i>'; }
+	if($numberFromArray == 0){ $rankNamed='<span class="disabled">Parcours non suivi</span>'; }
 	if($numberFromArray == 1){ $rankNamed='<span class="enabled">Parcours suivi</span>'; }
 	if($numberFromArray == 2){ $rankNamed='<span class="enabled">Apprenti</span>'; }
 	if($numberFromArray == 3){ $rankNamed='<span class="enabled">Compagnon</span>'; }
@@ -97,14 +100,19 @@ function numberToRankNamed($numberFromArray){
 	return $rankNamed;
 }
 
+function displayCoursesList($accessCodeArrayed){
+	echo '<ul id="parcours-list">
+		<li><strong>Apprentissage et transmission: </strong>'.numberToRankNamed($accessCodeArrayed[0]).displayJoinLink(0,$accessCodeArrayed).' <i class="fas fa-eye"></i> Voir</li>';
+echo '<li><strong>Culture en pot: </strong>'.numberToRankNamed($accessCodeArrayed[1]).displayJoinLink(1,$accessCodeArrayed).' <i class="fas fa-eye"></i> Voir</li>';
+echo '<li><strong>Art de l\'ouvrage: </strong>'.numberToRankNamed($accessCodeArrayed[2]).displayJoinLink(2,$accessCodeArrayed).' <i class="fas fa-eye"></i> Voir</li>';
+echo '<li><strong>Arts Associés: </strong>'.numberToRankNamed($accessCodeArrayed[3]).displayJoinLink(3,$accessCodeArrayed).' <i class="fas fa-eye"></i> Voir</li>
+	</ul>';
+}
+
+
 $accessCode = getAccessCodeFromDB();
 $accessCodeArrayed = stringToArrayAccessCode($accessCode);
 
 if(isset($_POST['course'])){
 	setToOneNewJoinedCourse($_POST['course'], $accessCodeArrayed);
 }
-
-echo '<br>Apprentissage et transmission: '.numberToRankNamed($accessCodeArrayed[0]).displayJoinLink(0,$accessCodeArrayed);
-echo '<br>Culture en pot: '.numberToRankNamed($accessCodeArrayed[1]).displayJoinLink(1,$accessCodeArrayed);
-echo '<br>Art de l\'ouvrage: '.numberToRankNamed($accessCodeArrayed[2]).displayJoinLink(2,$accessCodeArrayed);
-echo '<br>Arts Associés: '.numberToRankNamed($accessCodeArrayed[3]).displayJoinLink(3,$accessCodeArrayed);

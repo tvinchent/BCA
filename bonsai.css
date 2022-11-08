@@ -1,3 +1,5 @@
+.fa-sign-out-alt{color: red;}
+a.noUnderline{text-underline: none;}
 form{display: inline;}
 .disabled{color: grey;}
 .enabled{color: green;}

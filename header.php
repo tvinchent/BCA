@@ -1,16 +1,4 @@
-<!-- 
-
-si lecture cookie OU si lecture session
-	affichage nom
-
-sinon
-	affichage inscription connexion
-
-SUITE: header.php
-
- -->
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
