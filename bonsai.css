@@ -1,13 +1,18 @@
+form{display: inline;}
+/*
 html{text-align: center; background: url("assets/img/bg.jpeg"); background-size: cover; background-attachment: fixed;}
 body{display: flex; justify-content:center; align-items:center; margin: 2em; border: 2px solid rgb(0, 0, 0); background-color: rgba(255, 255, 255, 0.75); border-radius: 2em;}
 .container{ padding-bottom: 5%; ;}
 section, header{margin-top: 3em;}
 nav{float: right; margin-right: 1em;}
+
 /* h1, strong{font-family:fantasy ; font-weight: bolder;} */
-#logo, h1{color: green;}
+/*#logo, h1{color: green;}
 #courses, #community, #signup>a:hover, #signin>a:hover{color: rgb(53, 85, 53);}
+*/
+
 /* #courses, #community{color: grey;} */
-ol, ul{list-style-position: inside;}
+/*ol, ul{list-style-position: inside;}
 #connection, #retour{list-style-type: none;}
 #connection>li{display: inline; padding-left: 2em;}
 .cleared{clear: both;}
@@ -25,4 +30,4 @@ h2{margin-bottom: 1em;}
 @media screen and (max-width: 800px) {
     .parcours-action{display: block; position: relative; float: right;} /* width: 100%; margin:auto; text-align: center; clear: both;} */
     .mobile{display: block;}
-}
+}*/

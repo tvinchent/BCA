@@ -11,9 +11,48 @@ onclick "Annuler" : confirmation : ajax (set to 0)
 
 // Access Code functions
 
-// WIP function authorizedToJoin($NumberOfTheCourse){
-// 	return $isAuthorized ? true : false;
-// }
+function authorizedToJoin($NumberOfTheCourse, $accessCodeArrayed){
+	if($NumberOfTheCourse == 0){
+		if($accessCodeArrayed[0]==0){
+			$isAuthorized = true;
+		}
+		else{
+			$isAuthorized = false;
+		}
+	}
+	if($NumberOfTheCourse == 1){
+		if($accessCodeArrayed[0]>=2){
+			$isAuthorized = true;
+		}
+		else{
+			$isAuthorized = false;
+		}
+	}	
+	if($NumberOfTheCourse == 2){
+		if($accessCodeArrayed[0]>=2){
+			$isAuthorized = true;
+		}
+		else{
+			$isAuthorized = false;
+		}
+	}
+
+	if($NumberOfTheCourse == 3){
+		if($accessCodeArrayed[3]==0){
+			$isAuthorized = true;
+		}
+		else{
+			$isAuthorized = false;
+		}
+	}
+	return $isAuthorized;//isset($isAuthorized) ? $isAuthorized : false;
+}
+
+function displayJoinLink($NumberOfTheCourse, $accessCodeArrayed){
+	if(authorizedToJoin($NumberOfTheCourse, $accessCodeArrayed)){
+		return '- <form method="POST" name="course'.$NumberOfTheCourse.'"><input type="hidden" name="course" value="'.$NumberOfTheCourse.'"><a href="#" onclick="javascript:document.course'.$NumberOfTheCourse.'.submit();">Joindre</a></form><br>';
+	}
+}
 
 function setToOneNewJoinedCourse($NumberOfJoinedCourse, $accessCodeArrayed){
 	$accessCodeArrayed[$NumberOfJoinedCourse] = 1;
@@ -49,11 +88,12 @@ function arrayToStringAccessCode($accessCodeForDB){
 }
 
 function numberToRankNamed($numberFromArray){
-	if($numberFromArray == 0){ $rankNamed='Non suivi'; }
-	if($numberFromArray == 1){ $rankNamed='Apprenti'; }
-	if($numberFromArray == 2){ $rankNamed='Compagnon'; }
-	if($numberFromArray == 3){ $rankNamed='Passeur'; }
-	if($numberFromArray == 4){ $rankNamed='Guide'; }
+	if($numberFromArray == 0){ $rankNamed='Parcours non suivi'; }
+	if($numberFromArray == 1){ $rankNamed='Parcours suivi'; }
+	if($numberFromArray == 2){ $rankNamed='Apprenti'; }
+	if($numberFromArray == 3){ $rankNamed='Compagnon'; }
+	if($numberFromArray == 4){ $rankNamed='Passeur'; }
+	if($numberFromArray == 5){ $rankNamed='Guide'; }
 	return $rankNamed;
 }
 
@@ -64,7 +104,7 @@ if(isset($_POST['course'])){
 	setToOneNewJoinedCourse($_POST['course'], $accessCodeArrayed);
 }
 
-echo '<br>Apprentissage et transmission: '.numberToRankNamed($accessCodeArrayed[0]).'<form method="POST" name="course0"><input type="hidden" name="course" value="0"><a href="#" onclick="javascript:document.course0.submit();">Joindre</a></form><br>';
-echo '<br>Culture en pot: '.numberToRankNamed($accessCodeArrayed[1]).'<form method="POST" name="course1"><input type="hidden" name="course" value="1"><a href="#" onclick="javascript:document.course1.submit();">Joindre</a></form><br>';
-echo '<br>Art de l\'ouvrage: '.numberToRankNamed($accessCodeArrayed[2]).'<form method="POST" name="course2"><input type="hidden" name="course" value="2"><a href="#" onclick="javascript:document.course2.submit();">Joindre</a></form><br>';
-echo '<br>Arts Associés: '.numberToRankNamed($accessCodeArrayed[3]).'<form method="POST" name="course3"><input type="hidden" name="course" value="3"><a href="#" onclick="javascript:document.course3.submit();">Joindre</a></form><br>';
+echo '<br>Apprentissage et transmission: '.numberToRankNamed($accessCodeArrayed[0]).displayJoinLink(0,$accessCodeArrayed);
+echo '<br>Culture en pot: '.numberToRankNamed($accessCodeArrayed[1]).displayJoinLink(1,$accessCodeArrayed);
+echo '<br>Art de l\'ouvrage: '.numberToRankNamed($accessCodeArrayed[2]).displayJoinLink(2,$accessCodeArrayed);
+echo '<br>Arts Associés: '.numberToRankNamed($accessCodeArrayed[3]).displayJoinLink(3,$accessCodeArrayed);
