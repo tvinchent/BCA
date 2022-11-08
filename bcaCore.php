@@ -88,12 +88,12 @@ function arrayToStringAccessCode($accessCodeForDB){
 }
 
 function numberToRankNamed($numberFromArray){
-	if($numberFromArray == 0){ $rankNamed='Parcours non suivi'; }
-	if($numberFromArray == 1){ $rankNamed='Parcours suivi'; }
-	if($numberFromArray == 2){ $rankNamed='Apprenti'; }
-	if($numberFromArray == 3){ $rankNamed='Compagnon'; }
-	if($numberFromArray == 4){ $rankNamed='Passeur'; }
-	if($numberFromArray == 5){ $rankNamed='Guide'; }
+	if($numberFromArray == 0){ $rankNamed='<span class="disabled">Parcours non suivi</span> <i class="fas fa-info-circle" title="Vous devez compléter d\'autres parcours avant de commencer celui-ci"></i>'; }
+	if($numberFromArray == 1){ $rankNamed='<span class="enabled">Parcours suivi</span>'; }
+	if($numberFromArray == 2){ $rankNamed='<span class="enabled">Apprenti</span>'; }
+	if($numberFromArray == 3){ $rankNamed='<span class="enabled">Compagnon</span>'; }
+	if($numberFromArray == 4){ $rankNamed='<span class="enabled">Passeur</span>'; }
+	if($numberFromArray == 5){ $rankNamed='<span class="enabled">Guide</span>'; }
 	return $rankNamed;
 }
 

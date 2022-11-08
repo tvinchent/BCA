@@ -1,4 +1,6 @@
 form{display: inline;}
+.disabled{color: grey;}
+.enabled{color: green;}
 /*
 html{text-align: center; background: url("assets/img/bg.jpeg"); background-size: cover; background-attachment: fixed;}
 body{display: flex; justify-content:center; align-items:center; margin: 2em; border: 2px solid rgb(0, 0, 0); background-color: rgba(255, 255, 255, 0.75); border-radius: 2em;}
