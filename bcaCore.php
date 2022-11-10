@@ -21,6 +21,8 @@ $course1 = "Culture en pot";
 $course2 = "Art de l'ouvrage";
 $course3 = "Arts Associés";
 
+$mail = isset($_COOKIE['mail']) ? $_COOKIE['mail'] : $_SESSION['mail'];
+
 // Next challenge functions
 
 function getNextChallenge($selectedCourse, $accessCodeArrayed){
@@ -40,7 +42,7 @@ function isAuthorizedToJoin($NumberOfTheCourse, $accessCodeArrayed){
 		}
 	}
 	if($NumberOfTheCourse == 1){
-		if($accessCodeArrayed[1]==0){ // For test, IRL >=2
+		if($accessCodeArrayed[1]>=2){
 			$isAuthorized = true;
 		}
 		else{
@@ -88,7 +90,7 @@ function setToOneNewJoinedCourse($NumberOfJoinedCourse, $accessCodeArrayed){
 	$accessCodeForDB = arrayToStringAccessCode($accessCodeArrayed);
 	// insertion en base $accessCodeForDB
 	require('env.php');
-	$mail = $_COOKIE["mail"];
+	global $mail;
 	$update = $db->prepare('UPDATE user SET accessCode=:accessCode WHERE mail=:mail');
 	$update->execute(array('accessCode' => $accessCodeForDB, 'mail' => $mail));
 	header("Refresh:0");
@@ -96,7 +98,7 @@ function setToOneNewJoinedCourse($NumberOfJoinedCourse, $accessCodeArrayed){
 
 function getAccessCodeFromDB(){
 	require('env.php');
-	$mail = $_COOKIE["mail"];
+	global $mail;
 	$select = $db->query('SELECT accessCode FROM user WHERE mail="'.$mail.'"');
 	$result = $select->fetch();
 	$counttable = count((is_countable($result)?$result:[]));

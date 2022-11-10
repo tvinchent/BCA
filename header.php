@@ -24,7 +24,6 @@
 
         <?php
 
-        session_start();
         if(isset($_COOKIE['mail']) || isset($_SESSION['mail'])){
             $id = isset($_COOKIE['mail']) ? $_COOKIE['mail'] : $_SESSION['mail'];
             echo'

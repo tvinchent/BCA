@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $connected = (isset($_COOKIE['mail']) || isset($_SESSION['mail'])) ? true : false;
 
 if($connected) {

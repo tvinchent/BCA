@@ -18,6 +18,7 @@ if(isset($_POST["valid"])){
                 else{
                     session_start();
                     $_SESSION['mail'] = $mail;
+                    echo 'ok'.$_SESSION['mail'];
                 }
             }
             else{
