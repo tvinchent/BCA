@@ -1,8 +1,15 @@
+.Apprenti{color: blue;}
+.Compagnon{color: green ;}
+.Passeur{color: red ;}
+.Guide{color: brown ;}
+
 .fa-sign-out-alt{color: red;}
 a.noUnderline{text-underline: none;}
+a.continue{color: orange}
+.see{color: burlywood;}
 form{display: inline;}
 .disabled{color: grey;}
-.enabled{color: green;}
+.enabled{color: black;}
 /*
 html{text-align: center; background: url("assets/img/bg.jpeg"); background-size: cover; background-attachment: fixed;}
 body{display: flex; justify-content:center; align-items:center; margin: 2em; border: 2px solid rgb(0, 0, 0); background-color: rgba(255, 255, 255, 0.75); border-radius: 2em;}
@@ -32,6 +39,6 @@ h2{margin-bottom: 1em;}
 .mobile{display: none;}
 
 @media screen and (max-width: 800px) {
-    .parcours-action{display: block; position: relative; float: right;} /* width: 100%; margin:auto; text-align: center; clear: both;} */
+    .parcours-action{display: block; position: relative; float: right;} 
     .mobile{display: block;}
-}*/
+}*//* width: 100%; margin:auto; text-align: center; clear: both;} */

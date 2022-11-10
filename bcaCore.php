@@ -1,8 +1,12 @@
 <?php
 
 /* TODO : 
-1. Lien vers Voir -> 4 challenges / Continuer (challenge en cours)
-2. popup Joindre / Continuer / Vous devez compléter d'autres parcours avant de commencer celui-ci
+Création d'un dossier au nom "idUser" si n'existe pas
+Ajout d'un fichier
+Ajout de plusieurs fichiers
+
+Section Correction: "Travaux que je peux corriger" > Selection > Affichage travaux > Etes-vous sûr ? > BDD
+Section Mes travaux: if !isset(statut1) > Non corrigé, else > En cours / if !isset(statut3) if(total >=2) validé > obtenir mon badge, sinon non validé > Recommencer
 */
 
 $rank0 = "Parcours non suivi";
@@ -17,10 +21,16 @@ $course1 = "Culture en pot";
 $course2 = "Art de l'ouvrage";
 $course3 = "Arts Associés";
 
+// Next challenge functions
+
+function getNextChallenge($selectedCourse, $accessCodeArrayed){
+	$nextChallengeNumber = $accessCodeArrayed[$selectedCourse]+1;
+	return $nextChallengeNumber;
+}
 
 // Access Code functions
 
-function authorizedToJoin($NumberOfTheCourse, $accessCodeArrayed){
+function isAuthorizedToJoin($NumberOfTheCourse, $accessCodeArrayed){
 	if($NumberOfTheCourse == 0){
 		if($accessCodeArrayed[0]==0){
 			$isAuthorized = true;
@@ -30,7 +40,7 @@ function authorizedToJoin($NumberOfTheCourse, $accessCodeArrayed){
 		}
 	}
 	if($NumberOfTheCourse == 1){
-		if($accessCodeArrayed[0]>=2){
+		if($accessCodeArrayed[1]==0){ // For test, IRL >=2
 			$isAuthorized = true;
 		}
 		else{
@@ -57,13 +67,20 @@ function authorizedToJoin($NumberOfTheCourse, $accessCodeArrayed){
 	return isset($isAuthorized) ? $isAuthorized : false;//$isAuthorized;
 }
 
-function displayJoinLink($NumberOfTheCourse, $accessCodeArrayed){
-	if(authorizedToJoin($NumberOfTheCourse, $accessCodeArrayed)){
+function isJoined($NumberOfTheCourse, $accessCodeArrayed){
+	return $accessCodeArrayed[$NumberOfTheCourse] >= 1 ? true : false;
+}
+
+function displayCourseLink($NumberOfTheCourse, $accessCodeArrayed){
+	if(isAuthorizedToJoin($NumberOfTheCourse, $accessCodeArrayed)){
 		return ' <form method="POST" name="course'.$NumberOfTheCourse.'"><input type="hidden" name="course" value="'.$NumberOfTheCourse.'"><a class="noUnderline" href="#" onclick="javascript:document.course'.$NumberOfTheCourse.'.submit();"><i class="fas fa-shoe-prints"></i> Joindre</a></form>';
 	}
-	// else{
-	// 	return ' <a href="#"><i href="#" class="fas fa-info-circle" title="Vous devez compléter d\'autres parcours avant de commencer celui-ci"></i></a>';
-	// }
+	elseif(isJoined($NumberOfTheCourse, $accessCodeArrayed)){
+		return ' <a class="noUnderline continue" href="bcaChallenge.php?challenge='.getNextChallenge($NumberOfTheCourse, $accessCodeArrayed).'"><i class="fas fa-arrow-right"></i> Continuer</a></form>';
+	}
+	else{
+		return ' <a href="#"><i href="#" class="fas fa-info-circle" title="Vous devez compléter d\'autres challenges avant de commencer celui-ci"></i></a>';
+	}
 }
 
 function setToOneNewJoinedCourse($NumberOfJoinedCourse, $accessCodeArrayed){
@@ -103,20 +120,20 @@ function numberToRankNamed($numberFromArray){
 	global $rank0, $rank1, $rank2, $rank3, $rank4, $rank5;
 	if($numberFromArray == 0){ $rankNamed='<span class="disabled">'.$rank0.'</span>'; }
 	if($numberFromArray == 1){ $rankNamed='<span class="enabled">'.$rank1.'</span>'; }
-	if($numberFromArray == 2){ $rankNamed='<span class="enabled">'.$rank2.'</span>'; }
-	if($numberFromArray == 3){ $rankNamed='<span class="enabled">'.$rank3.'</span>'; }
-	if($numberFromArray == 4){ $rankNamed='<span class="enabled">'.$rank4.'</span>'; }
-	if($numberFromArray == 5){ $rankNamed='<span class="enabled">'.$rank5.'</span>'; }
+	if($numberFromArray == 2){ $rankNamed='<i class="fa fa-graduation-cap"></i> <span class="'.$rank2.'">'.$rank2.'</span>'; }
+	if($numberFromArray == 3){ $rankNamed='<i class="fa fa-handshake"></i> <span class="'.$rank3.'">'.$rank3.'</span>'; }
+	if($numberFromArray == 4){ $rankNamed='<i class="fa fa-hand-holding"></i> <span class="'.$rank4.'">'.$rank4.'</span>'; }
+	if($numberFromArray == 5){ $rankNamed='<i class="fa fa-star"></i> <span class="'.$rank5.'">'.$rank5.'</span>'; }
 	return $rankNamed;
 }
 
 function displayCoursesList($accessCodeArrayed){
 	global $course0, $course1, $course2, $course3;
 	echo '<ul id="parcours-list">
-		<li><strong>'.$course0.' : </strong>'.numberToRankNamed($accessCodeArrayed[0]).displayJoinLink(0,$accessCodeArrayed).' <i class="fas fa-eye"></i> Voir</li>';
-echo '<li><strong>'.$course1.' : </strong>'.numberToRankNamed($accessCodeArrayed[1]).displayJoinLink(1,$accessCodeArrayed).' <i class="fas fa-eye"></i> Voir</li>';
-echo '<li><strong>'.$course2.' : </strong>'.numberToRankNamed($accessCodeArrayed[2]).displayJoinLink(2,$accessCodeArrayed).' <i class="fas fa-eye"></i> Voir</li>';
-echo '<li><strong>'.$course3.' : </strong>'.numberToRankNamed($accessCodeArrayed[3]).displayJoinLink(3,$accessCodeArrayed).' <i class="fas fa-eye"></i> Voir</li>
+		<li><strong>'.$course0.' : </strong>'.numberToRankNamed($accessCodeArrayed[0]).displayCourseLink(0,$accessCodeArrayed).' <span class="see"><i class="fas fa-eye"></i> Voir</span></li>';
+echo '<li><strong>'.$course1.' : </strong>'.numberToRankNamed($accessCodeArrayed[1]).displayCourseLink(1,$accessCodeArrayed).' <span class="see"><i class="fas fa-eye"></i> Voir</span></li>';
+echo '<li><strong>'.$course2.' : </strong>'.numberToRankNamed($accessCodeArrayed[2]).displayCourseLink(2,$accessCodeArrayed).' <span class="see"><i class="fas fa-eye"></i> Voir</span></li>';
+echo '<li><strong>'.$course3.' : </strong>'.numberToRankNamed($accessCodeArrayed[3]).displayCourseLink(3,$accessCodeArrayed).' <span class="see"><i class="fas fa-eye"></i> Voir</span></li>
 	</ul>';
 }
 

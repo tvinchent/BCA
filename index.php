@@ -10,7 +10,7 @@ include('header.php');
 
 ?>
 		<section>
-			<h2 id="community">Mes parcours</h2>
+			<h2 id="community">Mes parcours & badges</h2>
 			<?php
 			if($connected) {
 				displayCoursesList($accessCodeArrayed);
@@ -20,8 +20,8 @@ include('header.php');
 		</section>
 
 		<section>
-			<h2 id="courses">Mes badges</h2>
-			<ul id="badges-list" class="disabled"><!-- temporary class -->
+			<h2 id="courses">Badges disponibles</h2>
+			<ul id="badges-list">
 				<li><i class="fa fa-graduation-cap"></i> Apprenti</li>
 				<li><i class="fa fa-handshake"></i> Compagnon</li>
 				<li><i class="fa fa-hand-holding"></i> Passeur</li>
