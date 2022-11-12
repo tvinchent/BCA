@@ -1,12 +1,20 @@
 <?php
 
-/* TODO : 
-Création d'un dossier au nom "idUser" si n'existe pas
-Ajout d'un fichier
-Ajout de plusieurs fichiers
+// System of access code to manage the suscription at a course / challenge with as calculated data as possible, so with less possible DB connection - eco friendly :)
 
-Section Correction: "Travaux que je peux corriger" > Selection > Affichage travaux > Etes-vous sûr ? > BDD
+/*
+
+Parcours = course
+Challenge = challenge
+Défi = work
+
+TODO : 
+
+Completer isJoined avec isJoinable qui contiendra en plus les regles d'acces au challenge
+
+Section Correction: "Travaux que je peux corriger" > Affichages Rendus >=2 > Selection > Affichage rendu > Etes-vous sûr ? > BDD
 Section Mes travaux: if !isset(statut1) > Non corrigé, else > En cours / if !isset(statut3) if(total >=2) validé > obtenir mon badge, sinon non validé > Recommencer
+
 */
 
 $rank0 = "Parcours non suivi";
@@ -21,9 +29,9 @@ $course1 = "Culture en pot";
 $course2 = "Art de l'ouvrage";
 $course3 = "Arts Associés";
 
-$mail = isset($_COOKIE['mail']) ? $_COOKIE['mail'] : $_SESSION['mail'];
+// work listing is on bcaWorkUpload.php
 
-// Next challenge functions
+$mail = isset($_COOKIE['mail']) ? $_COOKIE['mail'] : $_SESSION['mail'];
 
 function getNextChallenge($selectedCourse, $accessCodeArrayed){
 	$nextChallengeNumber = $accessCodeArrayed[$selectedCourse]+1;
@@ -78,10 +86,11 @@ function displayCourseLink($NumberOfTheCourse, $accessCodeArrayed){
 		return ' <form method="POST" name="course'.$NumberOfTheCourse.'"><input type="hidden" name="course" value="'.$NumberOfTheCourse.'"><a class="noUnderline" href="#" onclick="javascript:document.course'.$NumberOfTheCourse.'.submit();"><i class="fas fa-shoe-prints"></i> Joindre</a></form>';
 	}
 	elseif(isJoined($NumberOfTheCourse, $accessCodeArrayed)){
-		return ' <a class="noUnderline continue" href="bcaChallenge.php?challenge='.getNextChallenge($NumberOfTheCourse, $accessCodeArrayed).'"><i class="fas fa-arrow-right"></i> Continuer</a></form>';
+		// TODO: completer isJoined avec isJoinable qui contiendra en plus les regles d'acces au challenge
+		return ' <a class="noUnderline continue" href="bcaWorkUpload.php?course='.$NumberOfTheCourse.'&challenge='.getNextChallenge($NumberOfTheCourse, $accessCodeArrayed).'"><i class="fas fa-arrow-right"></i> Continuer</a></form>';
 	}
 	else{
-		return ' <a href="#"><i href="#" class="fas fa-info-circle" title="Vous devez compléter d\'autres challenges avant de commencer celui-ci"></i></a>';
+		return ' <a href="#"><i href="#" class="fas fa-info-circle" title="Vous devez compléter d\'autres défis avant de commencer ce parcours"></i></a>';
 	}
 }
 
@@ -137,11 +146,4 @@ echo '<li><strong>'.$course1.' : </strong>'.numberToRankNamed($accessCodeArrayed
 echo '<li><strong>'.$course2.' : </strong>'.numberToRankNamed($accessCodeArrayed[2]).displayCourseLink(2,$accessCodeArrayed).' <span class="see"><i class="fas fa-eye"></i> Voir</span></li>';
 echo '<li><strong>'.$course3.' : </strong>'.numberToRankNamed($accessCodeArrayed[3]).displayCourseLink(3,$accessCodeArrayed).' <span class="see"><i class="fas fa-eye"></i> Voir</span></li>
 	</ul>';
-}
-
-$accessCode = getAccessCodeFromDB();
-$accessCodeArrayed = stringToArrayAccessCode($accessCode);
-
-if(isset($_POST['course'])){
-	setToOneNewJoinedCourse($_POST['course'], $accessCodeArrayed);
 }

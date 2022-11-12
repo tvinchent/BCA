@@ -7,14 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<link rel="stylesheet" href="bonsai.css">
-	<link href="assets/css/all.css" rel="stylesheet">
-	<link href="assets/css/fontawesome.css" rel="stylesheet">
-	<link href="assets/css/brands.css" rel="stylesheet">
-	<link href="assets/css/solid.css" rel="stylesheet">
-	<script defer src="assets/js/all.js"></script>
-	<script defer src="assets/js/brands.js"></script>
-	<script defer src="assets/js/solid.js"></script>
-	<script defer src="assets/js/fontawesome.js"></script>
+    <script src="https://kit.fontawesome.com/b30f5d3ef8.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -23,6 +16,8 @@
         <header>
 
         <?php
+
+        session_start();
 
         if(isset($_COOKIE['mail']) || isset($_SESSION['mail'])){
             $id = isset($_COOKIE['mail']) ? $_COOKIE['mail'] : $_SESSION['mail'];

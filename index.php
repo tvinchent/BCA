@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+include('header.php');
 
 $connected = (isset($_COOKIE['mail']) || isset($_SESSION['mail'])) ? true : false;
 
@@ -8,7 +8,12 @@ if($connected) {
 	include('bcaCore.php');
 }
 
-include('header.php');
+$accessCode = getAccessCodeFromDB();
+$accessCodeArrayed = stringToArrayAccessCode($accessCode);
+
+if(isset($_POST['course'])){
+	setToOneNewJoinedCourse($_POST['course'], $accessCodeArrayed);
+}
 
 ?>
 		<section>
