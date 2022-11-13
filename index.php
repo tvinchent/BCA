@@ -6,14 +6,16 @@ $connected = (isset($_COOKIE['mail']) || isset($_SESSION['mail'])) ? true : fals
 
 if($connected) {
 	include('bcaCore.php');
+
+	$accessCode = getAccessCodeFromDB();
+	$accessCodeArrayed = stringToArrayAccessCode($accessCode);
+
+	if(isset($_POST['course'])){
+		setToOneNewJoinedCourse($_POST['course'], $accessCodeArrayed);
+	}
 }
 
-$accessCode = getAccessCodeFromDB();
-$accessCodeArrayed = stringToArrayAccessCode($accessCode);
 
-if(isset($_POST['course'])){
-	setToOneNewJoinedCourse($_POST['course'], $accessCodeArrayed);
-}
 
 ?>
 		<section>
