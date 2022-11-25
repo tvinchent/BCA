@@ -10,7 +10,7 @@ include('header.php');
 $connected = (isset($_COOKIE['mail']) || isset($_SESSION['mail'])) ? true : false;
 
 if($connected) {
-	include('bcaCore.php');
+	include('bcaAccessCodeSystem.php');
 }
 
 $course = 'course'.$_GET['course'];

@@ -28,7 +28,7 @@
                         <i class="fas fa-user"></i> '.$id.'
                     </li>
                     <li id="signout">
-                        <a href="deconnexion.php"><i class="fas fa-sign-out-alt"></i></a>
+                        <a href="userDisconnection.php"><i class="fas fa-sign-out-alt"></i></a>
                     </li>
                 </ul>
             </nav>
@@ -39,10 +39,10 @@
             <nav>
                 <ul id="connection">
                     <li id="signup">
-                        <a href="inscription.php"><i class="fas fa-user-plus"></i> Inscription</a>
+                        <a href="userRegistrationForm.php"><i class="fas fa-user-plus"></i> Inscription</a>
                     </li>
                     <li id="signin">
-                        <a href="connexion.php"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+                        <a href="userConnectionForm.php"><i class="fas fa-sign-in-alt"></i> Connexion</a>
                     </li>
                 </ul>
             </nav> 
