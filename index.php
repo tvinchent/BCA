@@ -1,7 +1,7 @@
 <?php
 
 /*
-TODO : 
+TODO:
 
 Completer isJoined avec isJoinable qui contiendra en plus les regles d'acces au challenge
 
