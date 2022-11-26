@@ -7,9 +7,9 @@ $work[2][4] = 'Réaliser une roulade arrière sans faire tomber l\'oeuf';
 
 include('header.php');
 
-$connected = (isset($_COOKIE['mail']) || isset($_SESSION['mail'])) ? true : false;
+$isConnected = (isset($_COOKIE['mail']) || isset($_SESSION['mail'])) ? true : false;
 
-if($connected) {
+if($isConnected) {
 	include('bcaAccessCodeSystem.php');
 }
 

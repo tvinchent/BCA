@@ -14,9 +14,9 @@ Section "Obtenir mon badge" quand validé par triumvirat Ou valider le badge qua
 
 include('header.php');
 
-$connected = (isset($_COOKIE['mail']) || isset($_SESSION['mail'])) ? true : false;
+$isConnected = (isset($_COOKIE['mail']) || isset($_SESSION['mail'])) ? true : false;
 
-if($connected) {
+if($isConnected) {
 	include('bcaAccessCodeSystem.php');
 
 	$accessCode = getAccessCodeFromDB();
@@ -33,7 +33,7 @@ if($connected) {
 		<section>
 			<h2 id="community">Mes parcours & badges</h2>
 			<?php
-			if($connected) {
+			if($isConnected) {
 				displayCoursesList($accessCodeArrayed);
 			}
 				

@@ -44,7 +44,7 @@ if(!is_dir($target_dir)){
   mkdir($target_dir, 0777);
 }
 
-// ici démare la boucle
+// ici démare la boucle pour un multi upload
 
 $target_file = $target_dir .'/'. basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -84,7 +84,7 @@ if(isset($_POST["submit"])) {
   }
 }
 
-// ici se termine la boucle
+// ici se termine la boucle pour un multi upload
 
 ?>
 
