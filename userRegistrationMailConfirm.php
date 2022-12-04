@@ -1,3 +1,23 @@
+<?php
+
+require_once('env.php');
+$mail = $_GET["mail"];
+// verif si mail existe pas déjà
+$selectall = $db->query('SELECT * FROM user WHERE mail="'.$mail.'"');
+$result = $selectall->fetch();
+$counttable = count((is_countable($result)?$result:[]));
+// sinon, insertion en base
+if($counttable==0){
+    $res = $db->prepare('INSERT INTO user (mail,password) VALUES(:mail,:password)');
+    $pwd = $_GET["token"];
+    $res->execute(array('mail' => $mail,'password' => $pwd));
+    $return = "Inscription validée, vous pouvez maintenant vous connecter !";
+}
+else{
+    $return = '<span style="color:red">Mail déjà inscrit</span>';
+}	
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,34 +49,13 @@
     <header>
         <nav>
             <ul id="connection">
-                <li id="signin">
-						<a href="userConnectionForm.php"><i class="fas fa-sign-in-alt"></i> Connexion</a>
-                </li>
+                <a href="userConnectionForm.php"><i class="fas fa-sign-in-alt"></i> Connexion</a>
             </ul>
         </nav>
         <div class="cleared"></div>
 
-        <h1>Inscription</h1>
+        <h1><?php echo $return ?></h1>
     </header>
-
-    <section>
-        <form action="userRegistrationForm-validation.php" method="post">
-            <table>
-                <tr>
-                    <td class="label">Mail</td>
-                    <td><input type="email" name="bca-mail" id="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"><br></td>
-                </tr>
-                <tr>
-                    <td class="label">Mot de passe</td>
-                    <td><input type="password" name="bca-pwd" id="" pattern=".{8,}"></td>
-                </tr>
-                <tr>
-                    <td class="label"></td>
-                    <td><input type="submit" name="valid"></td>
-                </tr>
-            </table>
-        </form>
-    </section>
 
     <section>
         <ul id="retour">

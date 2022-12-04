@@ -57,7 +57,7 @@ else{
         <nav>
             <ul id="connection">
                 <li id="signup">
-                    <a href="inscription.php"><i class="fas fa-user-plus"></i> Inscription</a>
+                    <a href="userRegistrationForm.php"><i class="fas fa-user-plus"></i> Inscription</a>
 				</li>
             </ul>
         </nav>
@@ -70,7 +70,7 @@ else{
 if ( $return != 'Connexion réussie' ) {
     echo'
     <section>
-        <form action="connexion-validation.php" method="post">
+        <form action="userRegistrationForm-validation.php" method="post">
             <table>
                 <tr>
                     <td class="label">Mail</td>
