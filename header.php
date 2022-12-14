@@ -27,6 +27,9 @@
                     <li id="signup">
                         <i class="fas fa-user"></i> '.$id.'
                     </li>
+                    <li>
+                        <i class="fas fa-lock"></i> <a href="userPasswordReset.php">Change password</a>
+                    </li>
                     <li id="signout">
                         <a href="userDisconnection.php"><i class="fas fa-sign-out-alt"></i></a>
                     </li>

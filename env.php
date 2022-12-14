@@ -2,7 +2,7 @@
 
 // defaut: dev
 
-$env = 'test';
+// $env = 'test';
 //$env = 'prod';
 if(isset($env)){
     if($env == 'test'){

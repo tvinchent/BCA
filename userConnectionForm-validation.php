@@ -22,7 +22,7 @@ if(isset($_POST["valid"])){
                 }
             }
             else{
-                $return = '<span style="color:red">Mauvais mot de passe</span>';
+                $return = '<span style="color:red">Mauvais mot de passe, <a href="userPasswordReset.php">réinitialisation du mot de passe</a>.</span>';
             }
         }
         else{

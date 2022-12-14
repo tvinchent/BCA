@@ -4,6 +4,7 @@
 
 /*
 
+Badge = rank
 Parcours = course
 Challenge = challenge
 Défi = work
