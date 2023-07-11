@@ -2,8 +2,8 @@
 
 // TODO: Afficher un listing des fichiers dans le dossier [numDuParcours][numDuChallenge]
 
-$work[0][2] = 'Réaliser une pirouette sur un pied';
-$work[2][4] = 'Réaliser une roulade arrière sans faire tomber l\'oeuf';
+$work[0][2] = 'Techniques de base de l’apprentissage de l’académie';
+$work[2][4] = 'Méthode orientale & méthode occidentale de l’apprentissage';
 
 include('header.php');
 
